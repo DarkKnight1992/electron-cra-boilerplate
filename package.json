@@ -1,16 +1,90 @@
 {
   "name": "electron-cra",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "del-cli": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17"
   },
+  "homepage": "./",
+  "main": "src-electron/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "cp:cra": "cp build/* app/dist -r",
+    "start:cra": "react-scripts start",
+    "build:cra": "react-scripts build",
+    "test:cra": "react-scripts test --env=jsdom",
+    "eject:cra": "react-scripts eject",
+    "start:electron": "set ELECTRON_START_URL=http://localhost:3000 && set NODE_ENV=development && electron -r babel-register .",
+    "build:electron": "node -r babel-register ./node_modules/webpack/bin/webpack --config ./webpack.config.js --colors",
+    "prebuild": "npm run clean",
+    "build": "npm run build:electron && npm run build:cra && npm run cp:cra",
+    "pack": "npm run build && build --publish never",
+    "pack:dir": "build --dir",
+    "pack:win": "build --win --x64",
+    "pack:all": "npm run build && build -mwl",
+    "pack:linux": "npm run build && build --linux",
+    "clean": "del-cli app/dist/*"
+  },
+  "browserslist": "electron 1.6",
+  "build": {
+    "productName": "electron",
+    "appId": "com.electron.cra",
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "differentialPackage": false
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "devtron": "^1.4.0",
+    "electron": "^1.7.10",
+    "electron-builder": "^19.49.4",
+    "electron-debug": "^1.4.0",
+    "electron-devtools-installer": "^2.2.3",
+    "source-map-support": "^0.5.0",
+    "webpack": "^3.10.0"
   }
 }

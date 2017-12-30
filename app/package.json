@@ -1,0 +1,15 @@
+{
+  "name": "electron-cra",
+  "version": "0.0.1",
+  "productName": "electron-cra",
+  "private": true,
+  "description": "Electron react boilerplate with CRA",
+  "main": "./dist/app.js",
+  "author": "DarKnight",
+  "scripts": {
+    "postinstall": "npm rebuild --runtime=electron --target=1.7.9 --disturl=https://atom.io/download/atom-shell --build-from-source"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}
