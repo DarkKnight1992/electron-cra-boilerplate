@@ -4,7 +4,7 @@
   "productName": "electron-cra",
   "private": true,
   "description": "Electron react boilerplate with CRA",
-  "main": "./dist/app.js",
+  "main": "./build/electron.js",
   "author": "DarKnight",
   "scripts": {
     "postinstall": "npm rebuild --runtime=electron --target=1.7.9 --disturl=https://atom.io/download/atom-shell --build-from-source"
